@@ -27,8 +27,8 @@ class PostgresConnector extends PostgresConnectorBase
      */
     public function createConnection(string $dsn, array $config, array $options)
     {
-        $token_provider = new TokenProvider($config);
-        $config['password'] = $token_provider->getToken(); 
+        $tokenProvider = new TokenProvider($config);
+        $config['password'] = $tokenProvider->getToken(); 
 
         return parent::createConnection($dsn, $config, $options);
     }
