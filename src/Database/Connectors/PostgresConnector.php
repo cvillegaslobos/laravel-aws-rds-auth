@@ -25,7 +25,7 @@ class PostgresConnector extends PostgresConnectorBase
      *
      * @throws InvalidArgumentException when aws profile is not supplied
      */
-    public function createConnection(string $dsn, array $config, array $options)
+    public function createConnection($dsn, array $config, array $options)
     {
         $tokenProvider = new TokenProvider($config);
         $config['password'] = $tokenProvider->getToken(); 
