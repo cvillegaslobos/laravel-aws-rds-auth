@@ -1,0 +1,43 @@
+{
+    "name": "transacta/laravel-aws-rds-auth",
+    "description": "A small lib to authenticate with AWS RDS using IAM credentials",
+    "keywords": [
+        "aws",
+        "database",
+        "eloquent",
+        "laravel",
+        "model",
+        "rds",
+        "postgres"
+    ],
+    "support": {
+        "issues": "https://github.com/transacta/laravel-aws-rds-auth/issues",
+        "security": "https://github.com/transacta/laravel-aws-rds-auth/issues"
+    },
+    "authors": [
+        { "name": "Fabiano Honorato", "email": "fabianoshz@gmail.com", "role": "Creator" }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "aws/aws-sdk-php-laravel": "^3.9",
+        "laravel/framework": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AWSRDSAuth\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AWSRDSAuth\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AWSRDSAuth\\AWSRDSAuthServiceProvider"
+            ]
+        }
+    }
+}
