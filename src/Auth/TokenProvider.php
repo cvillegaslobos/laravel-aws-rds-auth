@@ -65,9 +65,11 @@ class TokenProvider
             return $this->requestToken();
         }
 
+        $cache = Cache::store($cacheDriver);
+
         // We need to check if the user provided the database as it's own password cache driver
-        if(Cache::store($cacheDriver)->getStore() instanceof DatabaseStore) {
-            $cacheConfig = collect(Cache::store($cacheDriver)->getStore()->getConnection()->getConfig());
+        if($cache->getStore() instanceof DatabaseStore) {
+            $cacheConfig = collect($cache->getStore()->getConnection()->getConfig());
             $diff = $cacheConfig->diff(collect($this->config));
 
             if ($diff->isEmpty()) {
@@ -77,10 +79,10 @@ class TokenProvider
         }
 
         if ($force) {
-            Cache::forget($this->databaseCacheKey);
+            $cache->forget($this->databaseCacheKey);
         }
 
-        return Cache::remember($this->databaseCacheKey, $this->databaseCacheTTL, function () {
+        return $cache->remember($this->databaseCacheKey, $this->databaseCacheTTL, function () {
             return $this->requestToken(); 
         });
     }
