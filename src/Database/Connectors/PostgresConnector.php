@@ -3,13 +3,8 @@
 namespace AWSRDSAuth\Database\Connectors;
 
 use PDO;
-use Exception;
-use Throwable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use InvalidArgumentException;
 use AWSRDSAuth\Auth\TokenProvider;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Connectors\PostgresConnector as PostgresConnectorBase;
 
 class PostgresConnector extends PostgresConnectorBase
