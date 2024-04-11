@@ -29,6 +29,7 @@ class ConnectionFactory extends ConnectionFactoryBase
 
         return match ($config['driver']) {
             'rds-pgsql' => new PostgresConnector,
+            'rds-mysql' => new MySqlConnector,
             default => throw new InvalidArgumentException("Unsupported driver [{$config['driver']}]."),
         };
     }
@@ -53,6 +54,7 @@ class ConnectionFactory extends ConnectionFactoryBase
 
         return match ($driver) {
             'rds-pgsql' => new PostgresConnection($connection, $database, $prefix, $config),
+            'rds-mysql' => new MySqlConnector($connection, $database, $prefix, $config),
             default => throw new InvalidArgumentException("Unsupported driver [{$driver}]."),
         };
     }
