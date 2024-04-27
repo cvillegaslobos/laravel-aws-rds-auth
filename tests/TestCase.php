@@ -3,7 +3,7 @@
 namespace AwsRdsAuth\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use AwsRdsAuth\AwsRdsAuthServiceProvider;
+use AwsRdsAuth\RenameServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -15,7 +15,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            AwsRdsAuthServiceProvider::class,
+            RenameServiceProvider::class,
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace AwsRdsAuth;
 use AwsRdsAuth\Connectors\PostgresConnector;
 use Illuminate\Support\ServiceProvider;
 
-class AwsRdsAuthServiceProvider extends ServiceProvider
+class RenameServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
