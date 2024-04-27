@@ -2,19 +2,36 @@
 
 use AwsRdsAuth\TokenProvider;
 use AwsRdsAuth\Connectors\PostgresConnector;
-use Illuminate\Database\Connectors\PostgresConnector as BasePostgresConnector;
 
-it('makes a connection', function () {
+it('uses AWS token when IAM auth is true', function () {
+    $config = [
+        'username' => 'username',
+        'password' => 'old-password',
+        'use_iam_auth' => true
+    ];
+
     $tokenProvider = $this->createMock(TokenProvider::class);
     $tokenProvider->method('token')->willReturn('new-password');
 
-    $baseConnector = $this->createMock(BasePostgresConnector::class);
-    $baseConnector->expects($this->once())->method('connect')->with(['password' => 'new-password']);
+    $connector = $this->createPartialMock(PostgresConnector::class, ['createPdoConnection']);
+    $connector->expects($this->once())->method('createPdoConnection')->with("dsn", $config['username'], 'new-password', []);
 
-    $connector = new PostgresConnector();
-    $connector::swapBaseConnector($baseConnector);
+    $connector->createConnection("dsn", $config, [], $tokenProvider);
+});
 
-    $connector->connect(['password' => 'old-password'], $tokenProvider);
+it('uses default password when IAM auth is false', function () {
+    $config = [
+        'username' => 'username',
+        'password' => 'old-password',
+        'use_iam_auth' => false
+    ];
+
+    $tokenProvider = $this->createMock(TokenProvider::class);
+
+    $connector = $this->createPartialMock(PostgresConnector::class, ['createPdoConnection']);
+    $connector->expects($this->once())->method('createPdoConnection')->with("dsn", $config['username'], $config['password'], []);
+
+    $connector->createConnection("dsn", $config, [], $tokenProvider);
 });
 
 it('prepares the config for connection', function () {

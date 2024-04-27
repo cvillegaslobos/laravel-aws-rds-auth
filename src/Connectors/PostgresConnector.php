@@ -8,36 +8,22 @@ use Illuminate\Database\Connectors\PostgresConnector as BasePostgresConnector;
 class PostgresConnector extends BasePostgresConnector
 {
     /**
-     * The base connector swappable instance.
-     */
-    private static $baseConnector = null;
-
-    /**
-     * Establish a database connection.
+     * Create a new PDO connection.
      *
+     * @param  string  $dsn
      * @param  array  $config
+     * @param  array  $options
      * @return \PDO
-     */
-    public function connect(array $config, TokenProvider $provider = null)
-    {
-        $updatedConfig = $this->prepareConfig($config, $provider ?? new TokenProvider($config));
-
-        return self::$baseConnector
-            ? self::$baseConnector->connect($updatedConfig)
-            : parent::connect($updatedConfig);
-    }
-
-    /**
-     * Swap the base connector with a custom one.
-     * Main purpose is to mock the base connector in tests.
      *
-     * @param  BasePostgresConnector $connector
-     *
-     * @return BasePostgresConnector
+     * @throws \Exception
      */
-    public static function swapBaseConnector(BasePostgresConnector $connector)
+    public function createConnection($dsn, array $config, array $options, TokenProvider $provider = null)
     {
-        self::$baseConnector = $connector;
+        if ($config['use_iam_auth'] ?? false) {
+            $config = $this->prepareConfig($config, $provider ?? new TokenProvider($config));
+        }
+
+        return parent::createConnection($dsn, $config, $options);
     }
 
     /**

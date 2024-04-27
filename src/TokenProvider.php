@@ -42,14 +42,6 @@ class TokenProvider
      */
     public function token(): string
     {
-        return $this->getTokenFromCacheOrAws();
-    }
-
-    /**
-     * Get the auth token from cache or AWS.
-     */
-    protected function getTokenFromCacheOrAws(): string
-    {
         if ($this->config['token_cache_driver'] ?? null) {
             return $this->getTokenFromCache();
         }
@@ -74,7 +66,7 @@ class TokenProvider
     private function getTokenFromAws(): string
     {
         $endpoint = $this->config['host'].':'.$this->config['port'];
-        $region = $this->config['region'] ?? 'us-east-1';
+        $region = $this->config['region'] ?? null;
         $username = $this->config['username'] ?? null;
 
         return $this->generator->createToken($endpoint, $region, $username);
