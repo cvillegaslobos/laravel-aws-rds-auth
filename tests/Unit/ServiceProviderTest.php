@@ -1,10 +1,10 @@
 <?php
 
-use AwsRdsAuth\RenameServiceProvider;
+use AwsRdsAuth\AwsRdsAuthServiceProvider;
 use AwsRdsAuth\Connectors\PostgresConnector;
 
 it('binds the pgsql connector', function () {
-    $this->app->register(RenameServiceProvider::class);
+    $this->app->register(AwsRdsAuthServiceProvider::class);
 
     $connector = $this->app['db.connector.pgsql'];
 
