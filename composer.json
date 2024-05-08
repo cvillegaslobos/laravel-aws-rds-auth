@@ -1,5 +1,5 @@
 {
-    "name": "transacta/laravel-aws-rds-auth",
+    "name": "konn-labs/laravel-aws-rds-auth",
     "description": "A small lib to authenticate with AWS RDS using IAM credentials",
     "type": "library",
     "license": "MIT",
@@ -20,8 +20,8 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/transacta/laravel-aws-rds-auth/issues",
-        "source": "https://github.com/transacta/laravel-aws-rds-auth"
+        "issues": "https://github.com/konn-labs/laravel-aws-rds-auth/issues",
+        "source": "https://github.com/konn-labs/laravel-aws-rds-auth"
     },
     "require": {
         "php": "^8.2",
